@@ -28,7 +28,7 @@ func login(c echo.Context) error {
 		claims := token.Claims.(jwt.MapClaims)
 		claims["name"] = "Jon Snow"
 		claims["admin"] = true
-		claims["exp"] = time.Now().Add(time.Hour).Unix()
+		claims["exp"] = time.Now().Add(time.Hour * 1).Unix()
 
 		t, err := token.SignedString([]byte("secret"))
 		if err != nil {
