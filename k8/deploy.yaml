@@ -1,0 +1,18 @@
+apiVersion: apps/v1beta2 # before 1.9
+kind: Deployment
+metadata:
+  namespace: api
+  name: elt-auth
+spec:
+  selector:
+    matchLabels:
+      app: elt-auth
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: elt-auth
+    spec:
+      containers:
+      - name: elt-auth
+        image: matthewberryhill/elt-auth:pre
