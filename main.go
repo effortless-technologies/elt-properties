@@ -36,8 +36,9 @@ func main() {
 	r := e.Group("/restricted")
 	r.Use(middleware.JWT([]byte("secret")))
 	r.GET("", restricted)
-	r.GET("/properties", server.GetProperties)
 	r.POST("/properties", server.CreateProperty)
+	r.GET("/properties", server.GetProperties)
+	r.DELETE("/properties/:id", server.DeleteProperty)
 
 	e.Logger.Fatal(e.Start(":7001"))
 }

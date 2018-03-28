@@ -19,9 +19,24 @@ func CreateProperty(c echo.Context) error {
 	return c.JSON(http.StatusOK, p)
 }
 
+func DeleteProperty(c echo.Context) error {
+
+	id := c.Param("id")
+
+	err := models.DeleteProperty(id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, err)
+	}
+
+	return c.NoContent(http.StatusNoContent)
+}
+
 func GetProperties(c echo.Context) error {
 
-	p := new(models.Property)
+	p, err := models.GetProperties()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, err)
+	}
 
 	return c.JSON(http.StatusOK, p)
 }

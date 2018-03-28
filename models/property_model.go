@@ -19,7 +19,7 @@ import (
 //
 
 type Property struct {
-	Id 							*bson.ObjectId	`json:"id",bson:"_id"`
+	Id 							*bson.ObjectId	`json:"id" bson:"_id"`
 	Owner 						*Owner			`json:"owner"`
 	PutOnMarket					time.Time		`json:"date_on_market"`				// When is Property Open
 	BlackoutDates				[]*Period		`json:"blackout_period"`			// Details about future dates to block
@@ -159,6 +159,49 @@ func (p *Property) Create() error {
 	}
 
 	return nil
+}
+
+func DeleteProperty(id string) error {
+
+	session, err := mgo.Dial("localhost:27017")
+	if err != nil {
+		log.Println("Could not connect to mongo: ", err.Error())
+		return nil
+	}
+	defer session.Close()
+
+	session.SetMode(mgo.Monotonic, true)
+
+	c := session.DB("elt").C("properties")
+	err = c.RemoveId(bson.ObjectIdHex(id))
+	if err != nil {
+		log.Println("Error deleteing Property: ", err.Error())
+		return err
+	}
+
+	return nil
+}
+
+func GetProperties() ([]*Property, error) {
+
+	session, err := mgo.Dial("localhost:27017")
+	if err != nil {
+		log.Println("Could not connect to mongo: ", err.Error())
+		return nil, err
+	}
+	defer session.Close()
+
+	session.SetMode(mgo.Monotonic, true)
+
+	c := session.DB("elt").C("properties")
+	var properties []*Property
+	err = c.Find(bson.M{}).All(&properties)
+	if err != nil {
+		log.Println("Could not find properties: ", err.Error())
+		return nil, err
+	}
+
+	return properties, nil
 }
 
 type Period struct {
