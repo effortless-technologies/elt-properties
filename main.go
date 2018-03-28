@@ -2,6 +2,9 @@ package main
 
 import (
 	"net/http"
+
+	"github.com/effortless-technologies/elt-properties/server"
+
 	"github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
@@ -20,11 +23,6 @@ func restricted(c echo.Context) error {
 	return c.String(http.StatusOK, "Welcome "+name+"!")
 }
 
-func properties(c echo.Context) error {
-
-	return c.JSON(http.StatusOK, `{properties: null}`)
-}
-
 func main() {
 
 	e := echo.New()
@@ -38,7 +36,7 @@ func main() {
 	r := e.Group("/restricted")
 	r.Use(middleware.JWT([]byte("secret")))
 	r.GET("", restricted)
-	r.GET("/properties", properties)
+	r.GET("/properties", server.Properties)
 
 	e.Logger.Fatal(e.Start(":7001"))
 }
