@@ -8,7 +8,18 @@ import (
 	"github.com/labstack/echo"
 )
 
-func Properties(c echo.Context) error {
+func CreateProperty(c echo.Context) error {
+
+	p := models.NewProperty()
+	err := p.Create()
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, err)
+	}
+
+	return c.JSON(http.StatusOK, p)
+}
+
+func GetProperties(c echo.Context) error {
 
 	p := new(models.Property)
 

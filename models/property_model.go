@@ -1,7 +1,11 @@
 package models
 
 import (
+	"log"
 	"time"
+
+	"gopkg.in/mgo.v2"
+	"gopkg.in/mgo.v2/bson"
 )
 
 // Notes:
@@ -15,6 +19,7 @@ import (
 //
 
 type Property struct {
+	Id 							*bson.ObjectId	`json:"id",bson:"_id"`
 	Owner 						*Owner			`json:"owner"`
 	PutOnMarket					time.Time		`json:"date_on_market"`				// When is Property Open
 	BlackoutDates				[]*Period		`json:"blackout_period"`			// Details about future dates to block
@@ -126,18 +131,35 @@ type Property struct {
 	FirstAidKit					bool			`json:"first_aid_kit"`
 }
 
-type Owner struct {
-	FirstName					string			`json:"first_name"`
-	LastName 					string			`json:"last_name"`
-	// ClientType.. maybe "time_when_enrolled"
-	ReferredBy					string			`json:"referred_by"`
-	Phone						string			`json:"phone"`
-	Email 						string			`json:"email"`
-	PreferredContactMethod		string			`json:"preferred_contact_method"` 	// Preferred Form of Contact
-	Availability				string			`json:"availability"`				// Best Times to Contact
-	ShorttermLicenseNumber		string			`json:"shortterm_license_number"`
-	Location 					string			`json:"location"`					// Are you local?
- }
+func NewProperty() *Property {
+
+	p := new(Property)
+	id := bson.NewObjectId()
+	p.Id = &id
+
+	return p
+}
+
+func (p *Property) Create() error {
+
+	session, err := mgo.Dial("localhost:27017")
+	if err != nil {
+		log.Println("Could not connect to mongo: ", err.Error())
+		return err
+	}
+	defer session.Close()
+
+	session.SetMode(mgo.Monotonic, true)
+
+	c := session.DB("elt").C("properties")
+	_, err = c.UpsertId(p.Id, p)
+	if err != nil {
+		log.Println("Error creating Profile: ", err.Error())
+		return err
+	}
+
+	return nil
+}
 
 type Period struct {
 	Start						time.Time		`json:"start"`
