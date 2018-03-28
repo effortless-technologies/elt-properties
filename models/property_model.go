@@ -9,6 +9,10 @@ import (
 // 	Sort out Amenities
 //	Sort out cleaner checks
 // 	Sort out what data should be altered and read by which people
+// 	Need to classify types of data
+//		+ Amenities
+//		+ Extras
+//
 
 type Property struct {
 	Owner 						*Owner			`json:"owner"`
@@ -25,7 +29,7 @@ type Property struct {
 	IntercomSystem				bool 			`json:"intercom_system"`
 	HouseType					string			`json:"house_type"`
 	Address						*Address 		`json:"address"`
-	Warantees 					[]*Warantee		`json:"warantees"`
+	Warranties 					[]*Warranty		`json:"warranties"`
 	KnownIssues					[]string		`json:"known_issues"`
 	SnowRemoval					bool			`json:"snow_removal"`				// Does the Client want Snow Removal, Yard, ect ; Will your property need snow removal
 	Landscaping					bool			`json:"landscaping"`				// Does the Client want Snow Removal, Yard, ect ; Will your property need lawn care
@@ -148,7 +152,7 @@ type Address struct {
 	// todo: Implement
 }
 
-type Warantee struct {
+type Warranty struct {
 	//todo: Implement
 }
 
