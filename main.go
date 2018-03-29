@@ -38,6 +38,7 @@ func main() {
 	r.GET("", restricted)
 	r.POST("/properties", server.CreateProperty)
 	r.GET("/properties", server.GetProperties)
+	r.PUT("/properties/:id", server.UpdateProperty)
 	r.DELETE("/properties/:id", server.DeleteProperty)
 
 	e.Logger.Fatal(e.Start(":7001"))
