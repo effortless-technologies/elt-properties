@@ -252,10 +252,6 @@ type DoorCode struct {
 	// todo: Implement
 }
 
-type Address struct {
-	// todo: Implement
-}
-
 type Warranty struct {
 	//todo: Implement
 }
