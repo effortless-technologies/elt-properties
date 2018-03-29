@@ -12,6 +12,9 @@ import (
 func CreateProperty(c echo.Context) error {
 
 	p := models.NewProperty()
+	if err := c.Bind(p); err != nil {
+		return err
+	}
 	err := p.Create()
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err)
