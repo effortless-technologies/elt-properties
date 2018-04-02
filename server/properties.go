@@ -1,12 +1,12 @@
 package server
 
 import (
+	"encoding/json"
 	"net/http"
 
 	"github.com/effortless-technologies/elt-properties/models"
 
 	"github.com/labstack/echo"
-	"encoding/json"
 )
 
 func CreateProperty(c echo.Context) error {
@@ -78,6 +78,7 @@ func UpdateProperty(c echo.Context) error {
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err)
 	}
+
 	p := new(models.Property)
 	err = json.Unmarshal(propertyJson, p)
 	if err != nil {
