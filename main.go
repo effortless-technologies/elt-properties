@@ -1,13 +1,21 @@
 package main
 
 import (
+	"flag"
 	"net/http"
 
+	"github.com/effortless-technologies/elt-properties/models"
 	"github.com/effortless-technologies/elt-properties/server"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
+)
+
+var mongoAddr = flag.String(
+	"mongoAddr",
+	"localhost:27017",
+	"database service address",
 )
 
 func accessible(c echo.Context) error {
@@ -25,6 +33,10 @@ func restricted(c echo.Context) error {
 
 func main() {
 
+	flag.Parse()
+
+	models.MongoAddr = mongoAddr
+
 	e := echo.New()
 	e.Use(middleware.CORS())
 
@@ -36,7 +48,10 @@ func main() {
 	r := e.Group("/restricted")
 	r.Use(middleware.JWT([]byte("secret")))
 	r.GET("", restricted)
-	r.GET("/properties", server.Properties)
+	r.POST("/properties", server.CreateProperty)
+	r.GET("/properties", server.GetProperties)
+	r.PUT("/properties/:id", server.UpdateProperty)
+	r.DELETE("/properties/:id", server.DeleteProperty)
 
 	e.Logger.Fatal(e.Start(":7001"))
 }
