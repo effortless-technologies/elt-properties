@@ -2,12 +2,6 @@
 
 
 [[projects]]
-  name = "github.com/davecgh/go-spew"
-  packages = ["spew"]
-  revision = "346938d642f2ec3594ed81d874461961cd0faa76"
-  version = "v1.1.0"
-
-[[projects]]
   name = "github.com/dgrijalva/jwt-go"
   packages = ["."]
   revision = "06ea1031745cb8b3dab3f6a236daf2b0aa468b7e"
@@ -15,13 +9,21 @@
 
 [[projects]]
   name = "github.com/labstack/echo"
-  packages = [".","middleware"]
+  packages = [
+    ".",
+    "middleware"
+  ]
   revision = "a5d81b8d4a627f3f49dcb3164ef2bb5239682227"
   version = "3.3.4"
 
 [[projects]]
   name = "github.com/labstack/gommon"
-  packages = ["bytes","color","log","random"]
+  packages = [
+    "bytes",
+    "color",
+    "log",
+    "random"
+  ]
   revision = "6fe1405d73ec4bd4cd8a4ac8e2a2b2bf95d03954"
   version = "0.2.4"
 
@@ -52,24 +54,33 @@
 [[projects]]
   branch = "master"
   name = "golang.org/x/crypto"
-  packages = ["acme","acme/autocert"]
-  revision = "80db560fac1fb3e6ac81dbc7f8ae4c061f5257bd"
+  packages = [
+    "acme",
+    "acme/autocert"
+  ]
+  revision = "12892e8c234f4fe6f6803f052061de9057903bb2"
 
 [[projects]]
   branch = "master"
   name = "golang.org/x/sys"
   packages = ["unix"]
-  revision = "c488ab1dd8481ef762f96a79a9577c27825be697"
+  revision = "378d26f46672a356c46195c28f61bdb4c0a781dd"
 
 [[projects]]
   branch = "v2"
   name = "gopkg.in/mgo.v2"
-  packages = [".","bson","internal/json","internal/sasl","internal/scram"]
+  packages = [
+    ".",
+    "bson",
+    "internal/json",
+    "internal/sasl",
+    "internal/scram"
+  ]
   revision = "3f83fa5005286a7fe593b055f0d7771a7dce4655"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "fea3f1981fbd4e0d5b969b22888a92789c121105d7808e0c8a0e0db0385d3b4b"
+  inputs-digest = "d83f1b3a07abe6731b11cee70bad7282a6b56b1fe7839f4f8cc4b707726f3e2e"
   solver-name = "gps-cdcl"
   solver-version = 1

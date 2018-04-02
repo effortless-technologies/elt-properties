@@ -1,10 +1,10 @@
-FROM iron/go:dev
+FROM golang:latest
 
-WORKDIR /app
+ENV MONGO_ADDR='104.198.34.190:27017'
 
-ENV SRC_DIR=/go/src/github.com/effortless-technologies/elt-properties
-ADD . $SRC_DIR
-RUN cd #SRC_DIR; go get
-RUN cd $SRC_DIR; go build -o api; cp api /app/
+ADD . /go/src/app
+WORKDIR /go/src
+RUN go get app
+RUN go install app
 
-ENTRYPOINT ["./api"]
+ENTRYPOINT /go/bin/app -mongoAddr=$MONGO_ADDR

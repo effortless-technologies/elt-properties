@@ -20,8 +20,8 @@ before_install:
   - gcloud --quiet version
   - gcloud --quiet components update
   - gcloud --quiet components update beta
-  - go get -u github.com/golang/dep/cmd/dep
-  - dep ensure
+#  - go get -u github.com/golang/dep/cmd/dep
+#  - dep ensure
 
 install:
   - sudo docker build -t test/build .
