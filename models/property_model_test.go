@@ -24,7 +24,7 @@ func TestProperties_Create(t *testing.T) {
 
 		Convey("When creating a property", func() {
 			property := NewProperty()
-			err := property.Create()
+			err := property.CreateProperty()
 			So(err, ShouldBeNil)
 			propertyId = property.Id
 			So(propertyId, ShouldNotBeNil)
@@ -96,7 +96,7 @@ func TestProperties_Update(t *testing.T) {
 			So(err, ShouldBeNil)
 			So(property, ShouldNotBeNil)
 
-			err = property.Update()
+			err = property.UpdateProperty()
 			So(err, ShouldBeNil)
 
 			Convey("The updated property should have 5 floors", func() {

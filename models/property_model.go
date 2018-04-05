@@ -141,7 +141,7 @@ func NewProperty() *Property {
 	return p
 }
 
-func (p *Property) Create() error {
+func (p *Property) CreateProperty() error {
 
 	session, err := mgo.Dial(*MongoAddr)
 	if err != nil {
@@ -224,7 +224,7 @@ func GetProperties() ([]*Property, error) {
 	return properties, nil
 }
 
-func (p *Property) Update() (error) {
+func (p *Property) UpdateProperty() (error) {
 
 	session, err := mgo.Dial(*MongoAddr)
 	if err != nil {
