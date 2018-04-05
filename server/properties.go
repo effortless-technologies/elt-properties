@@ -15,7 +15,7 @@ func CreateProperty(c echo.Context) error {
 	if err := c.Bind(p); err != nil {
 		return err
 	}
-	err := p.Create()
+	err := p.CreateProperty()
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err)
 	}
@@ -85,7 +85,7 @@ func UpdateProperty(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, err)
 	}
 
-	p.Update()
+	p.UpdateProperty()
 
 	return c.JSON(http.StatusOK, p)
 }

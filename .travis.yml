@@ -20,6 +20,8 @@ before_install:
   - gcloud --quiet version
   - gcloud --quiet components update
   - gcloud --quiet components update beta
+  - go get
+  - go get github.com/smartystreets/goconvey/convey
 #  - go get -u github.com/golang/dep/cmd/dep
 #  - dep ensure
 
@@ -27,7 +29,7 @@ install:
   - sudo docker build -t test/build .
 
 script:
-  - echo "skip tests"
+  - go test -test.v ./... -args -mongoAddr=104.198.34.190:27017
 
 before_deploy:
   - gcloud --quiet components update kubectl
