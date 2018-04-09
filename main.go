@@ -52,6 +52,7 @@ func main() {
 	r.GET("/properties", server.GetProperties)
 	r.PUT("/properties/:id", server.UpdateProperty)
 	r.DELETE("/properties/:id", server.DeleteProperty)
+	r.GET("/properties/ingest", server.IngestProperties)
 
 	e.Logger.Fatal(e.Start(":7001"))
 }

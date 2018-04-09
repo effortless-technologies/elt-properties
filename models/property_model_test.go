@@ -16,7 +16,7 @@ var mongoAddr = flag.String(
 
 var propertyId *bson.ObjectId
 
-func TestProperties_Create(t *testing.T) {
+func TestProperties_CreateProperty(t *testing.T) {
 
 	Convey("If a properties database exists", t, func() {
 		MongoAddr = mongoAddr
@@ -77,7 +77,8 @@ func TestProperties_FindPropertyById(t *testing.T) {
 			So(err, ShouldBeNil)
 			So(property, ShouldNotBeNil)
 
-			Convey("The property found should have the same id", func() {
+			Convey(
+				"The property found should have the same id", func() {
 				So(property.Id, ShouldResemble, propertyId)
 			})
 		})

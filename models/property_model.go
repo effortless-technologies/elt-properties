@@ -1,7 +1,10 @@
 package models
 
 import (
+	"encoding/json"
+	"io/ioutil"
 	"log"
+	"net/http"
 	"time"
 
 	"gopkg.in/mgo.v2"
@@ -21,6 +24,7 @@ var MongoAddr *string
 
 type Property struct {
 	Id 							*bson.ObjectId	`json:"id" bson:"_id"`
+	LodgixId 					int				`json:"lodgix_id" bson:"lodgix_id"`
 	Owner 						*Owner			`json:"owner" bson:"owner"`
 	Address						*Address 		`json:"address" bson:"address" `
 	PutOnMarket					time.Time		`json:"date_on_market" bson:"date_on_market"`	// When is Property Open
@@ -224,6 +228,40 @@ func GetProperties() ([]*Property, error) {
 	return properties, nil
 }
 
+func RetrieveLodgixProperties() ([]*interface{}, error) {
+
+	var client http.Client
+	resp, err := client.Get("http://35.193.114.158:1323/props")
+	//resp, err := client.Get("http://localhost:1323/props")
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	bodyBytes, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	type lodgixResponse struct {
+		Count 			int 				`json:"count"`
+		Filters 		[]*interface{} 		`json:"filters"`
+		Properties 		[]*interface{} 		`json:"properties"`
+	}
+	lp := new(lodgixResponse)
+	err = json.Unmarshal(bodyBytes, lp)
+	if err != nil {
+		return nil, err
+	}
+
+	var properties []*interface{}
+	for _, v := range lp.Properties {
+		properties = append(properties, v)
+	}
+
+	return properties, nil
+}
+
 func (p *Property) UpdateProperty() (error) {
 
 	session, err := mgo.Dial(*MongoAddr)
@@ -255,7 +293,7 @@ type DoorCode struct {
 }
 
 type Warranty struct {
-	//todo: Implement
+	// todo: Implement
 }
 
 type Bedroom struct {
