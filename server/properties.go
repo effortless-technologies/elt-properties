@@ -89,9 +89,9 @@ func IngestProperties(c echo.Context) error {
 				 address := new(models.Address)
 				for k, v := range v.(map[string]interface{}) {
 					if k == "street_1" {
-						address.StreetAddress = v.(string)
+						address.StreetAddress1 = v.(string)
 					} else if k == "street_2" {
-
+						address.StreetAddress2 = v.(string)
 					} else if k == "city" {
 						address.City = v.(string)
 					} else if k == "state" {
