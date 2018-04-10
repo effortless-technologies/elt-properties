@@ -25,8 +25,12 @@ var MongoAddr *string
 type Property struct {
 	Id 							*bson.ObjectId	`json:"id" bson:"_id"`
 	LodgixId 					int				`json:"lodgix_id" bson:"lodgix_id"`
+	Address						*Address 		`json:"address" bson:"address"`
+	HouseType					string			`json:"house_type" bson:"house_type"`
+	Bedrooms					[]*Bedroom		`json:"beds" bson:"beds"`			// Number of bedsrooms
+	Bathrooms					int				`json:"baths" bson:"baths"`			// Number of Bathrooms
+	Sleeps 						int				`json:"sleeps" bson:"sleeps"`
 	Owner 						*Owner			`json:"owner" bson:"owner"`
-	Address						*Address 		`json:"address" bson:"address" `
 	PutOnMarket					time.Time		`json:"date_on_market" bson:"date_on_market"`	// When is Property Open
 	BlackoutDates				[]*Period		`json:"blackout_period" bson:"blackout_period"`	// Details about future dates to block
 	IsShorterm					bool			`json:"is_shorterm" bson:"is_shorterm"`	// Currently Short-term Rental
@@ -38,14 +42,11 @@ type Property struct {
 	CommunityCode				string			`json:"community_code" bson:"community_id"`	// Community/Gate Code
 	BuildingCode				string			`json:"building_code" bson:"building_code"`
 	IntercomSystem				bool 			`json:"intercom_system" bson:"intercom_system"`
-	HouseType					string			`json:"house_type" bson:"house_type"`
 	Warranties 					[]*Warranty		`json:"warranties" bson:"warranties"`
 	KnownIssues					[]string		`json:"known_issues" bson:"known_issues"`
 	SnowRemoval					bool			`json:"snow_removal" bson:"snow_removal"`	// Does the Client want Snow Removal, Yard, ect ; Will your property need snow removal
 	Landscaping					bool			`json:"landscaping" bson:"landscaping"`		// Does the Client want Snow Removal, Yard, ect ; Will your property need lawn care
 	MaxOccupancy				int				`json:"max_occupancy" bson:"max_occupancy"`
-	Bedrooms					[]*Bedroom		`json:"beds" bson:"beds"`			// Number of bedsrooms
-	Bathrooms					int				`json:"baths" bson:"baths"`			// Number of Bathrooms
 	Floors						int				`json:"floors" bson:"floors"`		// Number of Floors
 	LocationOfLinens			string			`json:"location_of_linens" bson:"location_of_lines"`	// Location of Extra Pillows, Blankets, ect
 	AirConditioning 			bool			`json:"air_conditioning" bson:"air_conditioning"`
@@ -69,9 +70,9 @@ type Property struct {
 	Grill 						bool			`json:"grill" bson:"grill"`			// BBQ/Grill
 	GrillType					string			`json:"grill_type" bson:"grill_type"`	// Type of Grill
 	HandicapAccessible			bool			`json:"handicap_accessible" bson:"handicap_accessible"`
-	TrackPickup					string 			`json:"track_pickup" bson:"track_pickup"`	// Track Pickup Day
-	TrashLocation				string			`json:"trash_location" bson:"track_location"`	// Location ad Instructions for Trash
-	TrashInstructions			string			`json:"trash_instructions" bson:"trach_instructions"`	// Location ad Instructions for Trash
+	TrashPickup					string 			`json:"trash_pickup" bson:"trash_pickup"`	// Track Pickup Day
+	TrashLocation				string			`json:"trash_location" bson:"trash_location"`	// Location ad Instructions for Trash
+	TrashInstructions			string			`json:"trash_instructions" bson:"trash_instructions"`	// Location ad Instructions for Trash
 	RecyclingPickup 			string			`json:"recycling_pickup" bson:"recycling_pickup"`	// Recycling Pickup Day
 	RecyclingLocation			string			`json:"recycling_location" bson:"recycling_location"`	// Location and Instructions for Trach & Recycling
 	RecyclingInstruction 		string			`json:"recycling_instruction" bson:"recycling_instruction"`	// Location and Instructions for Trach & Recycling
