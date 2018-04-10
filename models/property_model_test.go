@@ -127,3 +127,19 @@ func TestProperties_DeleteProperty(t *testing.T) {
 		})
 	})
 }
+
+func TestProperties_RetrieveLodgixProperties(t *testing.T) {
+
+	Convey("If properties exist in Lodgix", t, func() {
+
+		Convey("When ingesting properties from lodgix", func() {
+			properties, err := RetrieveLodgixProperties()
+			So(err, ShouldBeNil)
+
+			Convey("A list of properties should returned", func() {
+				So(properties, ShouldNotBeNil)
+				So(len(properties), ShouldBeGreaterThan, 0)
+			})
+		})
+	})
+}
