@@ -103,6 +103,19 @@ func IngestProperties(c echo.Context) error {
 					}
 				}
 				p.Address = address
+			} else if k == "bedrooms" {
+				var bedrooms []*models.Bedroom
+				for i := 0; i < int(v.(float64)); i++ {
+					bedroom := new(models.Bedroom)
+					bedrooms = append(bedrooms, bedroom)
+				}
+				p.Bedrooms = bedrooms
+			} else if k == "bathrooms" {
+				p.Bathrooms = int(v.(float64))
+			} else if k == "sleeps" {
+				p.Sleeps = int(v.(float64))
+			} else if k == "type" {
+				p.HouseType = v.(string)
 			}
 		}
 
