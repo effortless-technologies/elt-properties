@@ -19,7 +19,8 @@ var propertyId *bson.ObjectId
 func TestProperties_CreateProperty(t *testing.T) {
 
 	Convey("If a properties database exists", t, func() {
-		MongoAddr = mongoAddr
+		db := []string{*mongoAddr}
+		MongoAddr = db
 		So(MongoAddr, ShouldNotBeNil)
 
 		Convey("When creating a property", func() {
@@ -49,9 +50,9 @@ func TestProperties_CreateProperty(t *testing.T) {
 
 func TestPropertiesModel_GetProperties(t *testing.T) {
 
-	Convey(
-		"If a properties database exists with a property", t, func() {
-		MongoAddr = mongoAddr
+	Convey("If a properties database exists with a property", t, func() {
+		db := []string{*mongoAddr}
+		MongoAddr = db
 		So(MongoAddr, ShouldNotBeNil)
 
 		Convey("When getting properties", func() {
@@ -69,7 +70,8 @@ func TestPropertiesModel_GetProperties(t *testing.T) {
 func TestPropertiesModel_FindPropertyById(t *testing.T) {
 
 	Convey("If a properties database exists", t, func() {
-		MongoAddr = mongoAddr
+		db := []string{*mongoAddr}
+		MongoAddr = db
 		So(MongoAddr, ShouldNotBeNil)
 
 		Convey("When finding a property by id", func() {
@@ -88,7 +90,8 @@ func TestPropertiesModel_FindPropertyById(t *testing.T) {
 func TestPropertiesModel_Update(t *testing.T) {
 
 	Convey("If a properties database exists", t, func() {
-		MongoAddr = mongoAddr
+		db := []string{*mongoAddr}
+		MongoAddr = db
 		So(MongoAddr, ShouldNotBeNil)
 
 		Convey("When updating a property to have 5 floors", func() {
@@ -113,7 +116,8 @@ func TestPropertiesModel_Update(t *testing.T) {
 func TestPropertiesModel_DeleteProperty(t *testing.T) {
 
 	Convey("If a properties database exists", t, func() {
-		MongoAddr = mongoAddr
+		db := []string{*mongoAddr}
+		MongoAddr = db
 		So(MongoAddr, ShouldNotBeNil)
 
 		Convey("When deleting an existing property", func() {

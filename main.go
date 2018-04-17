@@ -16,11 +16,17 @@ var mongoAddr = flag.String(
 	"database service address",
 )
 
+var prodReplicaSet = []string{
+	"mongo-mongodb-replicaset-0.mongo-mongodb-replicaset:27017",
+	"mongo-mongodb-replicaset-1.mongo-mongodb-replicaset:27017",
+	"mongo-mongodb-replicaset-2.mongo-mongodb-replicaset:27017",
+}
+
 func main() {
 
 	flag.Parse()
-
-	models.MongoAddr = mongoAddr
+	db := catchMongoProd(*mongoAddr)
+	models.MongoAddr = db
 
 	e := echo.New()
 	e.Use(middleware.CORS())
@@ -37,5 +43,14 @@ func main() {
 	r.GET("/properties/ingest", server.IngestProperties)
 
 	e.Logger.Fatal(e.Start(":7001"))
+}
+
+func catchMongoProd(flag string) []string {
+
+	if flag == "prod" {
+		return prodReplicaSet
+	} else {
+		return []string{flag}
+	}
 }
 

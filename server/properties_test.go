@@ -42,7 +42,8 @@ var propertyId *bson.ObjectId
 
 func TestProperties_CreateProperty(t *testing.T) {
 	Convey("If a properties database exists", t, func() {
-		models.MongoAddr = mongoAddr
+		db := []string{*mongoAddr}
+		models.MongoAddr = db
 		So(models.MongoAddr, ShouldNotBeNil)
 
 		e := echo.New()
@@ -82,7 +83,8 @@ func TestProperties_CreateProperty(t *testing.T) {
 
 func TestProperties_GetProperties(t *testing.T) {
 	Convey("If a properties database exists", t, func() {
-		models.MongoAddr = mongoAddr
+		db := []string{*mongoAddr}
+		models.MongoAddr = db
 		So(models.MongoAddr, ShouldNotBeNil)
 
 		e := echo.New()
@@ -115,7 +117,8 @@ func TestProperties_GetProperties(t *testing.T) {
 
 func TestProperties_UpdateProperty(t *testing.T) {
 	Convey("If a properties database exists", t, func() {
-		models.MongoAddr = mongoAddr
+		db := []string{*mongoAddr}
+		models.MongoAddr = db
 		So(models.MongoAddr, ShouldNotBeNil)
 
 		var reqPayload = `
@@ -163,7 +166,8 @@ func TestProperties_UpdateProperty(t *testing.T) {
 
 func TestProperties_DeleteProperty(t *testing.T) {
 	Convey("If a properties database exists", t, func() {
-		models.MongoAddr = mongoAddr
+		db := []string{*mongoAddr}
+		models.MongoAddr = db
 		So(models.MongoAddr, ShouldNotBeNil)
 
 		e := echo.New()
@@ -193,7 +197,8 @@ func TestProperties_DeleteProperty(t *testing.T) {
 
 func TestProperties_IngestProperties(t *testing.T) {
 	Convey("If a properties database exists", t, func() {
-		models.MongoAddr = mongoAddr
+		db := []string{*mongoAddr}
+		models.MongoAddr = db
 		So(models.MongoAddr, ShouldNotBeNil)
 
 		e := echo.New()

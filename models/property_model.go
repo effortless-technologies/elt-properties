@@ -20,7 +20,7 @@ import (
 //		+ Amenities
 //		+ Extras
 
-var MongoAddr *string
+var MongoAddr []string
 
 type Property struct {
 	Id 							*bson.ObjectId	`json:"id" bson:"_id"`
@@ -148,7 +148,7 @@ func NewProperty() *Property {
 
 func (p *Property) CreateProperty() error {
 
-	session, err := mgo.Dial(*MongoAddr)
+	session, err := mgo.DialWithInfo(&mgo.DialInfo{Addrs: MongoAddr})
 	if err != nil {
 		log.Println("Could not connect to mongo: ", err.Error())
 		return err
@@ -169,7 +169,7 @@ func (p *Property) CreateProperty() error {
 
 func DeleteProperty(id string) error {
 
-	session, err := mgo.Dial(*MongoAddr)
+	session, err := mgo.DialWithInfo(&mgo.DialInfo{Addrs: MongoAddr})
 	if err != nil {
 		log.Println("Could not connect to mongo: ", err.Error())
 		return nil
@@ -190,7 +190,7 @@ func DeleteProperty(id string) error {
 
 func FindPropertyById(id string) (*Property, error) {
 
-	session, err := mgo.Dial(*MongoAddr)
+	session, err := mgo.DialWithInfo(&mgo.DialInfo{Addrs: MongoAddr})
 	if err != nil {
 		log.Println("Could not connect to mongo: ", err.Error())
 		return nil, err
@@ -209,7 +209,7 @@ func FindPropertyById(id string) (*Property, error) {
 
 func GetProperties() ([]*Property, error) {
 
-	session, err := mgo.Dial(*MongoAddr)
+	session, err := mgo.DialWithInfo(&mgo.DialInfo{Addrs: MongoAddr})
 	if err != nil {
 		log.Println("Could not connect to mongo: ", err.Error())
 		return nil, err
@@ -233,7 +233,6 @@ func RetrieveLodgixProperties() ([]*interface{}, error) {
 
 	var client http.Client
 	resp, err := client.Get("http://35.193.114.158:1323/props")
-	//resp, err := client.Get("http://localhost:1323/props")
 	if err != nil {
 		return nil, err
 	}
@@ -265,7 +264,7 @@ func RetrieveLodgixProperties() ([]*interface{}, error) {
 
 func (p *Property) UpdateProperty() (error) {
 
-	session, err := mgo.Dial(*MongoAddr)
+	session, err := mgo.DialWithInfo(&mgo.DialInfo{Addrs: MongoAddr})
 	if err != nil {
 		log.Println("Could not connect to mongo: ", err.Error())
 		return err
