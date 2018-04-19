@@ -47,7 +47,7 @@ func TestProperties_CreateProperty(t *testing.T) {
 	})
 }
 
-func TestPropertiesModel_GetProperties(t *testing.T) {
+func TestProperties_GetProperties(t *testing.T) {
 
 	Convey(
 		"If a properties database exists with a property", t, func() {
@@ -66,7 +66,7 @@ func TestPropertiesModel_GetProperties(t *testing.T) {
 	})
 }
 
-func TestPropertiesModel_FindPropertyById(t *testing.T) {
+func TestProperties_FindPropertyById(t *testing.T) {
 
 	Convey("If a properties database exists", t, func() {
 		MongoAddr = mongoAddr
@@ -85,7 +85,7 @@ func TestPropertiesModel_FindPropertyById(t *testing.T) {
 	})
 }
 
-func TestPropertiesModel_Update(t *testing.T) {
+func TestProperties_Update(t *testing.T) {
 
 	Convey("If a properties database exists", t, func() {
 		MongoAddr = mongoAddr
@@ -110,7 +110,7 @@ func TestPropertiesModel_Update(t *testing.T) {
 	})
 }
 
-func TestPropertiesModel_DeleteProperty(t *testing.T) {
+func TestProperties_DeleteProperty(t *testing.T) {
 
 	Convey("If a properties database exists", t, func() {
 		MongoAddr = mongoAddr
@@ -128,7 +128,7 @@ func TestPropertiesModel_DeleteProperty(t *testing.T) {
 	})
 }
 
-func TestPropertiesModel_RetrieveLodgixProperties(t *testing.T) {
+func TestProperties_RetrieveLodgixProperties(t *testing.T) {
 
 	Convey("If properties exist in Lodgix", t, func() {
 
