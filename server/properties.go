@@ -129,6 +129,31 @@ func IngestProperties(c echo.Context) error {
 		ingestedProperties = append(ingestedProperties, p)
 	}
 
+	properties, err = models.GetProperties()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, err)
+	}
+
+	for i := range properties {
+		found := false
+		for j := range lodgixProperties {
+			prop := *lodgixProperties[j]
+			pMap := prop.(map[string]interface{})
+			for k, v := range pMap {
+				if k == "logdix_id" {
+					id := v.(float64)
+					idInt := int(id)
+					if properties[i].LodgixId == idInt {
+						found = true
+					}
+				}
+			}
+		}
+		if found != true {
+			models.DeleteProperty(properties[i].Id.Hex())
+		}
+	}
+
 	return c.JSON(http.StatusOK, ingestedProperties)
 }
 
